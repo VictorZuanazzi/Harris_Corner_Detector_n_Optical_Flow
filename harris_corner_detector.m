@@ -3,6 +3,9 @@ function [H, row, col] = harris_corner_detector(Image, threshold, window_size)
 % converts ints to doubles
 Image = im2double(Image);
 
+% save for plotting
+ImageColor = Image;
+
 % convert image to grayscale first
 Image = rgb2gray(Image);
 
@@ -79,7 +82,7 @@ H = H(h_ws+1:end -h_ws, h_ws+1:end -h_ws);
 
 name = num2str(threshold) + "_" + num2str(window_size);
 
-corners = plot_corners(Image, col,row, name);
+corners = plot_corners(ImageColor, col,row, name);
 figure;
 imshow([Ix Iy], []);
 hold on
