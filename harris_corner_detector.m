@@ -1,4 +1,8 @@
-function [H, row, col] = harris_corner_detector(Image, threshold, window_size)
+function [H, row, col] = harris_corner_detector(Image, threshold, window_size, name)
+
+if nargin < 4
+    name = "";
+end
 
 % converts ints to doubles
 Image = im2double(Image);
@@ -80,7 +84,7 @@ end
 %undo padding
 H = H(h_ws+1:end -h_ws, h_ws+1:end -h_ws);
 
-name = num2str(threshold) + " " + num2str(window_size);
+name = name + " " + num2str(threshold) + " " + num2str(window_size);
 
 corners = plot_corners(ImageColor, col,row, name);
 figure('visible','off');
