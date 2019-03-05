@@ -83,11 +83,11 @@ H = H(h_ws+1:end -h_ws, h_ws+1:end -h_ws);
 name = num2str(threshold) + "_" + num2str(window_size);
 
 corners = plot_corners(ImageColor, col,row, name);
-figure;
+figure('visible','off');
 imshow([Ix Iy], []);
 hold on
 
-path = "./person_toy/harris_IxIy_" + name+ ".png";
+path = "./results/harris_IxIy_" + name+ ".png";
 saveas(gcf,path);
 
 %figure;
