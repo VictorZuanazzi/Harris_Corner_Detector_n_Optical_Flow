@@ -7,9 +7,6 @@ end
 % converts ints to doubles
 Image = im2double(Image);
 
-% save for plotting
-ImageColor = Image;
-
 % convert image to grayscale first
 Image = rgb2gray(Image);
 
@@ -20,13 +17,13 @@ Image = rgb2gray(Image);
 % use gaussian to take the gradient
 G = fspecial('gaussian');
 [Gx, Gy] = gradient(G);
-Ix = conv2(Image, Gx, 'same');
-Iy = conv2(Image, Gy, 'same');
+Ix = conv2(Image, Gx, 'valid');
+Iy = conv2(Image, Gy, 'valid');
 
 % compute 2nd order derivatives
-Ix2 = conv2(Ix.^2, G, 'same');
-Iy2 = conv2(Iy.^2, G, 'same');
-Ixy = conv2(Ix.*Iy, G, 'same');
+Ix2 = conv2(Ix.^2, G, 'valid');
+Iy2 = conv2(Iy.^2, G, 'valid');
+Ixy = conv2(Ix.*Iy, G, 'valid');
 
 % empirical constant
 k = 0.04;
@@ -36,12 +33,12 @@ k = 0.04;
 
 %half of window size
 h_ws = floor(window_size/2);
-H = zeros(h + window_size, w + window_size);
 
-%change that for padding.
+[h, w] = size(Ix2);
+H = zeros(h, w);
+
 for y = h_ws  + 1: h - h_ws
     for x = h_ws + 1 : w - h_ws
-        
         Ix2_matrix = Ix2(y-h_ws:y+h_ws,x-h_ws:x+h_ws);
         Ix2_sum = sum(Ix2_matrix, 'all');
         
@@ -81,6 +78,4 @@ for y = h_ws + 1 : h - h_ws
     end
 end
 
-%undo padding
-H = H(h_ws+1:end -h_ws, h_ws+1:end -h_ws);
 end
