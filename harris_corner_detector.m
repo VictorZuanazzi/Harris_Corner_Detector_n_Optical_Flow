@@ -57,7 +57,7 @@ for y = h_ws  + 1: h - h_ws
         R1 = det(Matrix) - (k * trace(Matrix)^2);
         
         % store the R values in our Harris Matrix
-        H(y,x) = R1;
+        H(y + h_ws,x + h_ws) = R1;
        
     end
 end
