@@ -6,7 +6,7 @@ title('corners ' + name);
 hold on
 
 for i = 1:size(row, 2)
-    plot(col(i),row(i), 'oy'); 
+    plot(col(i) + 2,row(i) + 2, 'xy'); 
 end
 if nargin > 4
     camroll(angle)
