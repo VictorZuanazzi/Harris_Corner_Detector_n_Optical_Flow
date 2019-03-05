@@ -84,12 +84,12 @@ end
 %undo padding
 H = H(h_ws+1:end -h_ws, h_ws+1:end -h_ws);
 
-name = name + " " + num2str(threshold) + " " + num2str(window_size);
+param_name = name + " t=" + num2str(threshold) + " w=" + num2str(window_size);
 
-corners = plot_corners(ImageColor, col,row, name);
+corners = plot_corners(ImageColor, col,row, param_name);
 figure('visible','off');
 imshow([Ix Iy], []);
-title('Ix Iy ' + name);
+title("Ix Iy " + name);
 hold on
 
 filename = strrep(name,' ','_');
