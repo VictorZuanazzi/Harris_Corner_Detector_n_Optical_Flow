@@ -80,14 +80,17 @@ end
 %undo padding
 H = H(h_ws+1:end -h_ws, h_ws+1:end -h_ws);
 
-name = num2str(threshold) + "_" + num2str(window_size);
+name = num2str(threshold) + " " + num2str(window_size);
 
 corners = plot_corners(ImageColor, col,row, name);
 figure('visible','off');
 imshow([Ix Iy], []);
+title('Ix Iy ' + name);
 hold on
 
-path = "./results/harris_IxIy_" + name+ ".png";
+filename = strrep(name,' ','_');
+
+path = "./results/harris_IxIy_" + filename + ".png";
 saveas(gcf,path);
 
 %figure;
