@@ -9,9 +9,12 @@ if find_params
 
     for w = 2:1:10
         for t = 10.^(-1:-1:-10)
-            [H, row, col] = harris_corner_detector(image, t, w, name);
+            [H, row, col, Ix, Iy] = harris_corner_detector(image, t, w, name);
+            param_name = name + " t=" + num2str(t) + " w=" + num2str(w);
+            plot_corners(image, col,row, param_name);
         end
     end
+    plot_IxIy(Ix,Iy,name)
 
     % pingpong
     image = imread('./pingpong/0000.jpeg');
@@ -20,8 +23,11 @@ if find_params
     for w = 2:1:10
         for t = 10.^(-1:-1:-10)
             [H, row, col] = harris_corner_detector(image, t, w, name);
+            param_name = name + " t=" + num2str(t) + " w=" + num2str(w);
+            plot_corners(image, col,row, param_name);
         end
     end
+    plot_IxIy(Ix,Iy,name)
 else
     % hand picked best values for window size and threshold
     
@@ -31,7 +37,10 @@ else
 
     w = 5;
     t = 1e-5;
-    [H, row, col] = harris_corner_detector(image, t, w, name);
+    [H, row, col, Ix, Iy] = harris_corner_detector(image, t, w, name);
+    param_name = name + " t=" + num2str(t) + " w=" + num2str(w);
+    plot_corners(image, col,row, param_name);
+    plot_IxIy(Ix,Iy,name);
 
     % ping pong
     image = imread('./pingpong/0000.jpeg');
@@ -39,5 +48,8 @@ else
 
     w = 5;
     t = 1e-2;
-    [H, row, col] = harris_corner_detector(image, t, w, name);
+    [H, row, col, Ix, Iy] = harris_corner_detector(image, t, w, name);
+    param_name = name + " t=" + num2str(t) + " w=" + num2str(w);
+    plot_corners(image, col,row, param_name);
+    plot_IxIy(Ix,Iy,name);
 end

@@ -1,4 +1,4 @@
-function [H, row, col] = harris_corner_detector(Image, threshold, window_size, name)
+function [H, row, col, Ix, Iy] = harris_corner_detector(Image, threshold, window_size, name)
 
 if nargin < 4
     name = "";
@@ -83,22 +83,4 @@ end
 
 %undo padding
 H = H(h_ws+1:end -h_ws, h_ws+1:end -h_ws);
-
-param_name = name + " t=" + num2str(threshold) + " w=" + num2str(window_size);
-
-corners = plot_corners(ImageColor, col,row, param_name);
-figure('visible','off');
-imshow([Ix Iy], []);
-title("Ix Iy " + name);
-hold on
-
-filename = strrep(name,' ','_');
-
-path = "./results/harris_IxIy_" + filename + ".png";
-saveas(gcf,path);
-
-%figure;
-%imshow(corners);
-
-
 end
