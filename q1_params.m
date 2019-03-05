@@ -7,8 +7,8 @@ if find_params
     image = imread('./person_toy/00000001.jpg');
     name = 'person toy';
 
-    for w = 2:1:10
-        for t = 10.^(-1:-1:-10)
+    for w = [6,8,10]
+        for t = ([1e-3:1e-3:1e-2 1e-2:1e-2:1e-1 1e-1:1e-1:1e-0])
             [H, row, col, Ix, Iy] = harris_corner_detector(image, t, w, name);
             param_name = name + " t=" + num2str(t) + " w=" + num2str(w);
             plot_corners(image, col,row, param_name);
@@ -20,8 +20,8 @@ if find_params
     image = imread('./pingpong/0000.jpeg');
     name = 'pingpong';
 
-    for w = 2:1:10
-        for t = 10.^(-1:-1:-10)
+    for w = [2,4,6,8,10]
+        for t = ([1e-3:1e-3:1e-2 1e-2:1e-2:1e-1 1e-1:1e-1:1e-0])
             [H, row, col] = harris_corner_detector(image, t, w, name);
             param_name = name + " t=" + num2str(t) + " w=" + num2str(w);
             plot_corners(image, col,row, param_name);
@@ -35,8 +35,8 @@ else
     image = imread('./person_toy/00000001.jpg');
     name = "person toy";
 
-    w = 5;
-    t = 1e-5;
+    w = 6;
+    t = 0.07;
     [H, row, col, Ix, Iy] = harris_corner_detector(image, t, w, name);
     param_name = name + " t=" + num2str(t) + " w=" + num2str(w);
     plot_corners(image, col,row, param_name);
@@ -46,8 +46,8 @@ else
     image = imread('./pingpong/0000.jpeg');
     name = "pingpong";
 
-    w = 5;
-    t = 1e-2;
+    w = 2;
+    t = 0.04;
     [H, row, col, Ix, Iy] = harris_corner_detector(image, t, w, name);
     param_name = name + " t=" + num2str(t) + " w=" + num2str(w);
     plot_corners(image, col,row, param_name);

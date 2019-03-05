@@ -4,10 +4,10 @@ if nargin < 3
     name = "";
 end
 if nargin < 4
-    w = 5;
+    w = 6;
 end
 if nargin < 5
-    t = 1e-5;
+    t = 0.07;
 end
 
 rot_image = imrotate(image, angle);
