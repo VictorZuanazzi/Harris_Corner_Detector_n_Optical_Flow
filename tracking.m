@@ -1,24 +1,18 @@
 function    tracking(type)
-    
+    % choose params depending on type 
     if type =="person_toy"
         path = "./person_toy/";
         file_ending ="*.jpg";
-        gif_name = "person_toy_2.gif";
+        gif_name = "person_toy.gif";
         window_size =  7;
     elseif type =="pingpong"
         path = "./pingpong/";
         file_ending = "*.jpeg";
-        gif_name = "pingpong_2.gif";
+        gif_name = "pingpong.gif";
         window_size =  9;
     end
    
-    %LOAD_SYN_IMAGES read from directory image_dir all files with extension png
-    %   image_dir: path to the image directory
-    %   nchannel: the image channel to be loaded, default = 1
-    %
-    %   image_stack: all images stacked along the 3rd channel
-    %   scriptV: light directions
-    
+    %LOAD IMAGES
     files = dir(fullfile(path, file_ending));
     nfiles = length(files);
 
@@ -27,7 +21,7 @@ function    tracking(type)
 
     % for velocity vec
     patch_size = 15 ; % window size for which the vel vector is calculated
-    shift_constant = 0.5; % additive constant such that the new edge moves min 1 pixel
+    shift_constant = 1; % additive constant such that the new edge moves min 1 pixel after rounding to nearest int
 
     % allow only odd sized patches
     if mod(patch_size, 2) == 0
@@ -57,14 +51,14 @@ function    tracking(type)
     number_of_edges = length(row);
 
     for n=1:(nfiles-1)
-        n
 
         image1=im2double(image_{n});
         image2=im2double(image_{n+1});
 
             % determine windows for optical flow 
             for i=1:number_of_edges
-
+                
+                % determine box for which velo vector is calculated
                 window_x = [current_edge_x(i)-floor(patch_size/2):current_edge_x(i)+floor(patch_size/2)];
                 window_y = [current_edge_y(i)-floor(patch_size/2):current_edge_y(i)+floor(patch_size/2)];
 
@@ -75,7 +69,7 @@ function    tracking(type)
                 window_x=window_x(window_x<width+1);
                 window_y=window_y(window_y<height+1);
 
-
+                % get sub images for the velo vector
                 sub_image1 = image1(window_y,window_x);
                 sub_image2 = image2(window_y,window_x);
 
@@ -94,6 +88,7 @@ function    tracking(type)
         %add current edges to image
         plot(current_edge_x(:),current_edge_y(:), ['.','r'], 'MarkerSize',10); 
         
+        %add flow vector
         q = quiver(current_edge_x,current_edge_y, vel_vec_x, vel_vec_y);
         q.Color = 'yellow';
 
@@ -102,7 +97,6 @@ function    tracking(type)
         saveas(gcf,full_path);
         
         % construct here a gif
-
         frame = getframe(h);
         im = frame2im(frame);
         [imind,cm] = rgb2ind(im,256);

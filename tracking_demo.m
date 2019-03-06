@@ -1,9 +1,9 @@
-type2 = 'person_toy';
-tracking(type2);
-
-type1 = 'pingpong';
+type1 = 'person_toy';
 tracking(type1);
 
+
+type2 = 'pingpong';
+tracking(type2);
 
 
 
