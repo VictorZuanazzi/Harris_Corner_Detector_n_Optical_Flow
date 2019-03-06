@@ -21,7 +21,7 @@ function    tracking(type)
 
     % for velocity vec
     patch_size = 15 ; % window size for which the vel vector is calculated
-    shift_constant = 1; % additive constant such that the new edge moves min 1 pixel after rounding to nearest int
+    shift_constant = 0.75; % additive constant such that the new edge moves min 1 pixel after rounding to nearest int
 
     % allow only odd sized patches
     if mod(patch_size, 2) == 0
